@@ -6,7 +6,12 @@
 install_mpd2chromecast() {
   # Go to home directory
   cd || exit
-  echo "Installing mpd2chromecast user: ${HOME_USER} pwd: ${HOME_DIR}"
+
+  if test -d "${HOME_DIR}"; then
+    echo "Installing mpd2chromecast user: ${HOME_USER} pwd: ${HOME_DIR}"
+  else
+    echo "Could not detect user: ${HOME_USER} or Home directory Home: ${HOME_DIR}"
+  fi
 
   # Check if Git is installed
   if ! command -v git &> /dev/null; then
@@ -48,8 +53,7 @@ else
   exit 1
 fi
 
-echo "Detected User: $HOME_USER"
-echo "Detected User Home: $HOME_DIR"
+echo "Detected User: $HOME_USER Home: $HOME_DIR" 
 
 # Export variables for function
 export -f install_mpd2chromecast
